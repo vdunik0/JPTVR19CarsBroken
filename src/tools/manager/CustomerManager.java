@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package tools;
+package tools.manager;
 
 import entity.Customer;
 import java.util.List;
@@ -36,20 +36,13 @@ public class CustomerManager {
     }
 
     public void addCustomerToArray(List<Customer> listCustomer) {
-        for (int i = 0; i < listCustomer.size(); i++) {
-                        if(listCustomer.get(i) == null){
-                            listCustomer.set(i, customer);
-                            break;
-                        }
-    }
+        listCustomer.add(customer);
     }
 
     public void printListOfCustomers(List<Customer> listCustomer) {
         for (int i = 0; i < listCustomer.size(); i++) {
-                        if(listCustomer.get(i) != null){
-                            System.out.println(i+1+". " + listCustomer.get(i).toString());
+            System.out.println(i+1+". " + listCustomer.get(i).toString());
                         }
-                    }
     }
     
 }

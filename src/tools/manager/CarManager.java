@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package tools;
+package tools.manager;
 
 import entity.Car;
 import java.util.List;
@@ -34,18 +34,14 @@ public class CarManager {
         return car;
     }
     public void addCarToArray(Car car, List<Car> listCars) {
-        for (int i = 0; i < listCars.size(); i++) {
-            if(listCars.get(i) == null){
-                listCars.set(i, car);
-                break;
-            }
-        }
+        listCars.add(car);
     }
     public void printListCars(List<Car> listCars) {
         for (int i = 0; i < listCars.size(); i++) {
-            if(listCars.get(i) != null){
-                System.out.println(i+1+". " + listCars.toString());
+            if (listCars.get(i)!= null){
+            System.out.println(i+1+". " + listCars.get(i).toString());
             }
+            
         }   
     }
     }

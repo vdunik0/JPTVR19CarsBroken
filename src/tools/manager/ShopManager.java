@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package tools;
+package tools.manager;
 
 import entity.Car;
 import entity.Customer;
@@ -31,34 +31,36 @@ public class ShopManager {
             System.out.print("Выберите номер читателя: ");
             int customerNumber = scanner.nextInt();
             scanner.nextLine();
-            listCustomer = (List<Customer>) listCustomer.get(customerNumber-1);
+            customer = listCustomer.get(customerNumber-1);
             history.getCustomer();
             carManager.printListCars(listCars);
             int carNumber = scanner.nextInt();
             scanner.nextLine();
-            Car car = listCars.get(carNumber-1);
+            car = listCars.get(carNumber-1);
             history.setCar(car);
             Calendar calendar = new GregorianCalendar();
             history.setBoughtDate(calendar.getTime());
-            customer.setWallet(customer.getWallet()-car.getPrice());
-            this.printHistory(history);
+            if (customer.getWallet() < car.getPrice()){
+                System.out.println("У пользователя недостаточно средств");
+            }else{
+                int newWallet = customer.getWallet()-car.getPrice();
+                customer.setWallet(newWallet);
+                listCars.remove(car);
+            }
         return history;
     }
 
     private void printHistory(History history) {
-        System.out.printf("Книга \"%s\" выдана %s %s%n"
+        System.out.printf("Книга \"%s %s\" выдана %s %s%n"
                 ,history.getCar().getModel()
+                ,history.getCar().getManufacturer()
                 ,history.getCustomer().getFirstname()
                 ,history.getCustomer().getLastname()
         );
     }
-    private void printListOfBoughtCars(List<List> listHistory){
-        for (int i = 0; i < listHistory.size(); i++) {
-            System.out.printf("Книга \"%s\" выдана %s %s%n"
-                ,history.getCar().getModel()
-                ,history.getCustomer().getFirstname()
-                ,history.getCustomer().getLastname()
-        );
+    public void printListOfBoughtCars(List<History> listHistories){
+        for (int i = 0; i < listHistories.size(); i++) {
+            System.out.println(listHistories.get(i).toString());
         }
     }
     public void addHistoryToArray(History history, List<History> listHistory) {

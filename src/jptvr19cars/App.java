@@ -5,16 +5,17 @@
  */
 package jptvr19cars;
 
-import tools.ShopManager;
+import tools.savers.HistorySaver;
+import tools.manager.ShopManager;
 import tools.savers.CustomerSaver;
-import tools.CarManager;
+import tools.manager.CarManager;
 import entity.Customer;
 import entity.Car;
 import entity.History;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
-import tools.CustomerManager;
+import tools.manager.CustomerManager;
 import tools.savers.CarSaver;
         
 /**
@@ -33,9 +34,14 @@ public class App {
     private Customer customer = new Customer();
     private History history = new History();
     private ShopManager shopManager = new ShopManager();
+    private CustomerSaver customerSaver = new CustomerSaver();
+    private CarSaver carSaver = new CarSaver();
+    private HistorySaver historySaver = new HistorySaver();
     
     public App() {
-        
+        listCars = carSaver.loadCars();
+        listCustomer = customerSaver.loadCustomer();
+        listHistories = historySaver.loadCustomer();
     }
 
     public void run() {
@@ -69,11 +75,12 @@ public class App {
                     System.out.println("Добавить новую машину");
                     Car car = carManager.createCar();
                     carManager.addCarToArray(car,listCars);
-                    CarSaver carSaver = new CarSaver();
                     carSaver.saveCars(listCars);
+                    break;
                 case "2":
                     System.out.println("Список машин");
                     carManager.printListCars(listCars);
+                    break;
                 case "3":
                     System.out.println("--- Зарегистрировать покупателя ---");
                     Customer customer = customerManager.addCustomer();
@@ -83,15 +90,22 @@ public class App {
                             + customer.getLastname()
                     );
                     customerManager.addCustomerToArray(listCustomer);
-                    CustomerSaver customerSaver = new CustomerSaver();
                     customerSaver.saveCustomer(listCustomer);
                     break;
                 case "4":
                     System.out.println("--- Список покупателей ---");
                     customerManager.printListOfCustomers(listCustomer);
+                    break;
                 case "5":
                     History history = shopManager.buyCar(listCars, listCustomer);
-                    
+                    shopManager.addHistoryToArray(history, listHistories);
+                    historySaver.saveHistory(listHistories);
+                    carSaver.saveCars(listCars);
+                    customerSaver.saveCustomer(listCustomer);
+                    break;
+                case "6":
+                    shopManager.printListOfBoughtCars(listHistories);
+                    break;
                 default:
                     System.out.println("Нет такой задачи.");
             }

@@ -5,13 +5,14 @@
  */
 package entity;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
  *
  * @author pupil
  */
-public class History {
+public class History implements Serializable{
     private Customer customer;
     private Car car;
     private Date boughtDate;
@@ -51,7 +52,10 @@ public class History {
 
     @Override
     public String toString() {
-        return "History{" + "buyeer=" + customer + ", car=" + car + ", boughtDate=" + boughtDate + '}';
+        return "History{" + "customer=" 
+                + customer + ", car=" 
+                + car + ", boughtDate=" 
+                + boughtDate + '}';
     }
     
 }

@@ -25,7 +25,7 @@ public class CustomerSaver {
         FileOutputStream fos = null;
         ObjectOutputStream oos = null;
         try {
-            fos = new FileOutputStream("listCustomer");
+            fos = new FileOutputStream("Customer");
             oos = new ObjectOutputStream(fos);
             oos.writeObject(listCustomer);
             oos.flush();
@@ -41,7 +41,7 @@ public class CustomerSaver {
         FileInputStream fis = null;
         ObjectInputStream ois = null;
         try {
-            fis = new FileInputStream("listCustomer");
+            fis = new FileInputStream("Customer");
             ois = new ObjectInputStream(fis);
             listCustomer = (List<Customer>) ois.readObject();
         } catch (FileNotFoundException ex) {

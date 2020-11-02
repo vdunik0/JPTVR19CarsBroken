@@ -5,11 +5,13 @@
  */
 package entity;
 
+import java.io.Serializable;
+
 /**
  *
  * @author pupil
  */
-public class Car {
+public class Car implements Serializable{
     private String model;
     private String manufacturer;
     private Integer year;

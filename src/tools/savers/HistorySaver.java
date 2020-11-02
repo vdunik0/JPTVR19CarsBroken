@@ -5,7 +5,7 @@
  */
 package tools.savers;
 
-import entity.Car;
+import entity.History;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -17,16 +17,17 @@ import java.util.List;
 
 /**
  *
- * @author pupil
+ * @author Вдуник
  */
-public class CarSaver {
-    public void saveCars(List<Car> listCars) {
+public class HistorySaver {
+    List<History> listHHistory = new ArrayList<>();
+    public void saveHistory(List<History> listHistories) {
         FileOutputStream fos = null;
         ObjectOutputStream oos = null;
         try {
-            fos = new FileOutputStream("Cars");
+            fos = new FileOutputStream("History");
             oos = new ObjectOutputStream(fos);
-            oos.writeObject(listCars);
+            oos.writeObject(listHistories);
             oos.flush();
         } catch (FileNotFoundException ex) {
             System.out.println("Не найден файл");
@@ -35,14 +36,14 @@ public class CarSaver {
         }
     }
 
-    public List<Car> loadCars() {
-        List<Car> listCars = new ArrayList<>();
+    public List<History> loadCustomer() {
+        List<History> listHistories = new ArrayList<>();
         FileInputStream fis = null;
         ObjectInputStream ois = null;
         try {
-            fis = new FileInputStream("Cars");
+            fis = new FileInputStream("History");
             ois = new ObjectInputStream(fis);
-            listCars = (List<Car>) ois.readObject();
+            listHistories = (List<History>) ois.readObject();
         } catch (FileNotFoundException ex) {
             System.out.println("Не найден файл");
         } catch (IOException ex) {
@@ -50,6 +51,7 @@ public class CarSaver {
         } catch (ClassNotFoundException ex) {
             System.out.println("Не найден класс");
         }
-        return listCars;
+        return listHistories;
     }
-}
+    }
+    
